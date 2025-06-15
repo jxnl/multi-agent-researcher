@@ -2,12 +2,18 @@
 
 import asyncio
 import os
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.append(str(Path(__file__).parent.parent))
+
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
 
 from src.researcher.agents.lead_v2 import LeadResearcherV2, LeadResearcherConfig
-from src.researcher.agents.subagent import ResearchSubagent, SubagentConfig
+from src.researcher.agents.mock_subagent import MockSubagent
 from src.researcher.agents.base import AgentContext
 from src.researcher.memory.base import InMemoryStorage, ResearchMemory
 from src.researcher.tools.base import ToolRegistry
@@ -63,7 +69,7 @@ async def comparative_research():
     lead = LeadResearcherV2(
         memory=memory,
         tool_registry=registry,
-        subagent_class=ResearchSubagent,
+        subagent_class=MockSubagent,
         config=config
     )
     
